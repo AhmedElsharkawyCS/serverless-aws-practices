@@ -4,8 +4,7 @@
   "description": "aws samples to interact with diff services like lambda, dynamoDB, api getaway, aws secret manger,...",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dynamoDB": "node dynamoDB.js"
   },
   "repository": {
     "type": "git",
