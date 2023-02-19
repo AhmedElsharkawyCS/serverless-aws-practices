@@ -1,11 +1,11 @@
 {
   "name": "aws-practices",
   "version": "1.0.0",
-  "description": "aws samples to interact with diff services like lambda, dynamoDB, api getaway, aws secret manger,...",
+  "description": "it's a simple project to practice aws services like lambda, dynamoDB, api getaway, serverless",
   "main": "index.js",
   "scripts": {
-    "dynamoDB": "node dynamoDB.js",
-    "lambda": "node lambda.js"
+    "dynamoDB": "node dynamodb/index.js",
+    "lambda": "node lambda/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +15,11 @@
     "nodejs",
     "javascript",
     "aws",
-    "aws-sdk"
+    "aws-sdk",
+    "lambda",
+    "dynamoDB",
+    "api getaway",
+    "serverless"
   ],
   "author": "Ahmed Elsharkawy",
   "license": "ISC",
