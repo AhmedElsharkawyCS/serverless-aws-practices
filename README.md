@@ -1,13 +1,14 @@
 # aws-practices
 
-it's a simple project to practice aws services like lambda, dynamoDB, api getaway, serverless, etc.
+This repository contains some practices with AWS services with some applications.
 
 ## Table of Contents
 
 - [DynamoDB](#dynamodb)
 - [Lambda](#lambda)
+- [IAM](#iam)
 - [Serverless](#serverless)
-- [Demo Applications](#demo-applications)
+- [Applications](#applications)
 
 ## DynamoDB
 
@@ -22,6 +23,13 @@ it's a simple project to practice aws services like lambda, dynamoDB, api getawa
 - Delete a lambda function
 - Invoke a lambda function
 
+## IAM
+
+- Create a users, role and policy
+- Attach a policy to a role
+- Attach a role to a user
+- Delete a user, role and policy
+
 ## Serverless
 
 - Create a serverless application
@@ -30,4 +38,14 @@ it's a simple project to practice aws services like lambda, dynamoDB, api getawa
 - Invoke a lambda function locally
 - Create API Gateway with a lambda function
 
-## Demo Applications
+## Applications
+
+- create a notes application with:
+  - cognito
+  - google login
+  - lambda
+  - dynamoDB
+  - api gateway
+  - serverless
+  - s3
+  - cloudfront

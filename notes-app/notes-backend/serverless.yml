@@ -1,0 +1,49 @@
+service: notes-backend
+
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-1
+  memorySize: 128
+  stage: production
+  timeout: 5
+  endpointType: REGIONAL
+  environment:
+    NOTES_TABLE_NAME: ${self:service}-${self:provider.stage}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+resources:
+  Resources:
+    NotesTable:
+      Type: AWS::DynamoDB::Table
+      DeletionPolicy: Retain
+      Properties:
+        TableName: ${self:provider.environment.NOTES_TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: userId
+            AttributeType: S
+          - AttributeName: timestamp
+            AttributeType: N
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userId
+            KeyType: HASH
+          - AttributeName: timestamp
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+        GlobalSecondaryIndexes:
+          - IndexName: id-index
+            KeySchema:
+              - AttributeName: id
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+            ProvisionedThroughput:
+              ReadCapacityUnits: 1
+              WriteCapacityUnits: 1

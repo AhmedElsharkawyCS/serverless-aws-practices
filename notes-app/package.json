@@ -1,0 +1,12 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "description": "it's a simple notes app that allows the user to login with his google account to add, remove, and list notes",
+  "main": "index.js",
+  "scripts": {
+    "start": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
