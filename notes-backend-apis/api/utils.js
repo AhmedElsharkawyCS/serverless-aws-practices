@@ -4,9 +4,8 @@ const getResponseHeaders = () => {
     "Access-Control-Allow-Credentials": true
   }
 }
-getUserId = (body) => {
-  const { userId } = JSON.parse(body)
-  return userId
+getUserId = (headers) => {
+  return headers["user-id"]
 }
 
 module.exports = {

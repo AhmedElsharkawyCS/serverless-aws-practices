@@ -6,6 +6,10 @@ This repository contains some practices with AWS services with some applications
 
 - [DynamoDB](#dynamodb)
 - [Lambda](#lambda)
+- [Step Functions](#step-functions)
+- [S3](#s3)
+- [API Gateway](#api-gateway)
+- [CloudWatch](#cloudwatch)
 - [IAM](#iam)
 - [Serverless](#serverless)
 - [Applications](#applications)
@@ -22,6 +26,33 @@ This repository contains some practices with AWS services with some applications
 - Create a lambda function with a custom runtime
 - Delete a lambda function
 - Invoke a lambda function
+
+## Step Functions
+
+- Create a step function to run a lambda function
+- Delete a step function
+- Invoke a step function
+- Run multiple lambda functions in parallel
+
+## S3
+
+- Create a bucket
+- Delete a bucket
+- Upload a file to a bucket
+- Add trigger to a bucket
+
+## API Gateway
+
+- Create a REST API
+- Create a resource and customize the responses
+- create API Gateway Authorizer
+- Link API Gateway to a lambda function
+
+## CloudWatch
+
+- Create a CloudWatch Log Group
+- Create a scheduled CloudWatch Event
+- Retrieve logs from a CloudWatch Log Group
 
 ## IAM
 
@@ -40,12 +71,51 @@ This repository contains some practices with AWS services with some applications
 
 ## Applications
 
-- create a notes application with:
-  - cognito
-  - google login
-  - lambda
-  - dynamoDB
-  - api gateway
-  - serverless
-  - s3
-  - cloudfront
+### Notes-Backend-APIs
+
+- Create a serverless application with the following services:
+  - DynamoDB
+  - Lambda
+  - API Gateway
+  - IAM
+  - Serverless
+
+#### Requirements
+
+- Node.js
+- Serverless Framework
+- AWS IAM User
+
+#### Scripts
+
+- install dependencies
+
+```bash
+cd notes-backend-apis && yarn install
+
+```
+
+- deploy the application using serverless framework
+
+```bash
+serverless deploy
+
+```
+
+- remove the application using serverless framework
+
+```bash
+serverless remove
+
+```
+
+- run the application locally
+
+```bash
+yarn offline
+
+```
+
+#### API Documentation
+
+[API Documentation/Postman](https://documenter.getpostman.com/view/6200920/2s93JnUSGY)

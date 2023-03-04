@@ -1,32 +1,38 @@
 /**
  * @api {get} /note/:id Get a note
  */
-const AWS = require("aws-sdk")
-const { getResponseHeaders } = require("./utils")
+const { DynamoDBClient, GetItemCommand } = require("@aws-sdk/client-dynamodb")
+const { getResponseHeaders, getUserId } = require("./utils")
 
-AWS.config.update({
+const dynamoDb = new DynamoDBClient({
   region: "us-east-1"
 })
-const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 const handler = async (event) => {
   const noteId = event.pathParameters.id
-  const userId = event.queryStringParameters.userId
+  // read userId from header
+  const userId = getUserId(event.headers)
 
-  const params = {
+  const params = new GetItemCommand({
     TableName: process.env.NOTES_TABLE_NAME,
     Key: {
-      id: noteId,
-      userId: userId
+      id: { S: noteId },
+      userId: { S: userId }
     }
-  }
+  })
 
   try {
-    const { Item } = await dynamoDb.get(params).promise()
+    const { Item } = await dynamoDb.send(params)
     return {
       statusCode: 200,
       headers: getResponseHeaders(),
-      body: JSON.stringify(Item)
+      body: JSON.stringify({
+        id: Item.id.S,
+        title: Item.title.S,
+        content: Item.content.S,
+        expireAt: Item.expireAt.N,
+        createdAt: Item.createdAt.N
+      })
     }
   } catch (error) {
     return {

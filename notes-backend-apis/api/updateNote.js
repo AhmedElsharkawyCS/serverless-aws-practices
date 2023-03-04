@@ -1,38 +1,38 @@
 /**
  * @api {put} /notes/:id Update a note
  */
-const AWS = require("aws-sdk")
+const { DynamoDBClient, UpdateItemCommand } = require("@aws-sdk/client-dynamodb")
 const moment = require("moment")
 const { getResponseHeaders, getUserId } = require("./utils")
 
-AWS.config.update({
+const dynamoDb = new DynamoDBClient({
   region: "us-east-1"
 })
-const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 const handler = async (event) => {
-  const { body } = event
+  const { body, headers } = event
   const noteId = event.pathParameters.id
   const { title, content } = JSON.parse(body)
   const expireAt = moment().add(1, "day").unix()
-  const userId = getUserId(body)
+  // read userId from header
+  const userId = getUserId(headers)
 
-  const params = {
+  const params = new UpdateItemCommand({
     TableName: process.env.NOTES_TABLE_NAME,
     Key: {
-      id: noteId,
-      userId: userId
+      id: { S: noteId },
+      userId: { S: userId }
     },
     UpdateExpression: "set title = :title, content = :content, expireAt = :expireAt",
     ExpressionAttributeValues: {
-      ":title": title,
-      ":content": content,
-      ":expireAt": expireAt
+      ":title": { S: title },
+      ":content": { S: content },
+      ":expireAt": { N: expireAt.toString() }
     }
-  }
+  })
 
   try {
-    await dynamoDb.update(params).promise()
+    await dynamoDb.send(params)
     return {
       statusCode: 200,
       headers: getResponseHeaders(),
@@ -40,8 +40,7 @@ const handler = async (event) => {
         id: noteId,
         title,
         content,
-        expireAt,
-        userId
+        expireAt
       })
     }
   } catch (error) {

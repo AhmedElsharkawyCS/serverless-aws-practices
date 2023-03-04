@@ -4,15 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "offline": "nodemon --watch api --exec \"sls offline\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1328.0",
+    "@aws-sdk/client-dynamodb": "^3.284.0",
     "moment": "^2.29.4",
-    "serverless-offline": "^12.0.4",
     "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21",
+    "serverless-offline": "^12.0.4"
   }
 }

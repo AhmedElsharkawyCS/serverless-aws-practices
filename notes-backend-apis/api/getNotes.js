@@ -1,35 +1,41 @@
 /**
  * @api {get} /notes Get the notes
  */
-const AWS = require("aws-sdk")
-const { getResponseHeaders } = require("./utils")
+const { DynamoDBClient, ScanCommand } = require("@aws-sdk/client-dynamodb")
+const { getResponseHeaders, getUserId } = require("./utils")
 
-AWS.config.update({
+const dynamoDb = new DynamoDBClient({
   region: "us-east-1"
 })
-const dynamoDb = new AWS.DynamoDB.DocumentClient()
 
 const handler = async (event) => {
-  const { queryStringParameters } = event
+  const { queryStringParameters, headers } = event
   const limit = parseInt(queryStringParameters?.limit || 10)
-  const userId = event.queryStringParameters.userId
+  // read userId from header
+  const userId = getUserId(headers)
 
-  const params = {
+  const params = new ScanCommand({
     TableName: process.env.NOTES_TABLE_NAME,
-    Key: {
-      userId: userId
-    },
     Limit: limit,
-    ScanIndexForward: false
-  }
-  console.log("params", params)
+    FilterExpression: "userId = :userId",
+    ExpressionAttributeValues: {
+      ":userId": { S: userId }
+    }
+  })
 
   try {
-    const { Items } = await dynamoDb.query(params).promise()
+    const { Items } = await dynamoDb.send(params)
+    const mappedItems = Items.map((item) => ({
+      id: item.id.S,
+      title: item.title.S,
+      content: item.content.S,
+      expireAt: item.expireAt.N,
+      createdAt: item.createdAt.N
+    }))
     return {
       statusCode: 200,
       headers: getResponseHeaders(),
-      body: JSON.stringify(Items)
+      body: JSON.stringify(mappedItems)
     }
   } catch (error) {
     return {
