@@ -4,6 +4,21 @@ frameworkVersion: "3"
 
 plugins:
   - serverless-offline
+  # - serverless-domain-manager
+
+# custom:
+#   customDomain:
+#     domainName: notes-backend-apis.com
+#     basePath: ''
+#     stage: ${self:provider.stage}
+#     createRoute53Record: true
+#     endpointType: regional
+#     certificateName: '*.notes-backend-apis.com'
+#     certificateArn: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
+#     hostedZoneId: Z1234567890123
+#     securityPolicy: tls_1_2
+#     endpointConfiguration: REGIONAL
+#     enabled: true
 
 provider:
   name: aws

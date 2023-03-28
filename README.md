@@ -10,6 +10,8 @@ This repository contains some practices with AWS services with some applications
 - [S3](#s3)
 - [API Gateway](#api-gateway)
 - [CloudWatch](#cloudwatch)
+- [Route53](#route53)
+- [ACM](#acm)
 - [IAM](#iam)
 - [Serverless](#serverless)
 - [Applications](#applications)
@@ -53,6 +55,15 @@ This repository contains some practices with AWS services with some applications
 - Create a CloudWatch Log Group
 - Create a scheduled CloudWatch Event
 - Retrieve logs from a CloudWatch Log Group
+
+## Route53
+
+- Create a custom domain
+- Create a hosted zone
+
+## ACM
+
+- Create a ssl certificate to a custom domain
 
 ## IAM
 
